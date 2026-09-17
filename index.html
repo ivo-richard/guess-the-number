@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="A responsive JavaScript number-guessing game with scoring, streaks, and best scores."
+  >
+
+  <title>Guess the Number</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       GAME HEADER
+  ========================== -->
+
+  <header id="headerBtn" class="game-header">
+
+    <button
+      id="refresh"
+      class="reset-button"
+      type="button"
+      aria-label="Reset game"
+    >
+      <svg
+        width="30"
+        height="30"
+        viewBox="0 0 50 50"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path d="M25 38c-7.2 0-13-5.8-13-13
+          0-3.2 1.2-6.2 3.3-8.6l1.5 1.3
+          C15 19.7 14 22.3 14 25
+          c0 6.1 4.9 11 11 11
+          1.6 0 3.1-.3 4.6-1l.8 1.8
+          c-1.7.8-3.5 1.2-5.4 1.2z"/>
+
+        <path d="M34.7 33.7l-1.5-1.3
+          c1.8-2 2.8-4.6 2.8-7.3
+          0-6.1-4.9-11-11-11
+          -1.6 0-3.1.3-4.6 1l-.8-1.8
+          c1.7-.8 3.5-1.2 5.4-1.2
+          7.2 0 13 5.8 13 13
+          0 3.1-1.2 6.2-3.3 8.6z"/>
+
+        <path d="M18 24h-2v-6h-6v-2h8z"/>
+        <path d="M40 34h-8v-8h2v6h6z"/>
+      </svg>
+    </button>
+
+    <button
+      id="next"
+      class="next-button"
+      type="button"
+    >
+      Next
+    </button>
+
+  </header>
+
+
+  <!-- =========================
+       MAIN GAME
+  ========================== -->
+
+  <main id="gameContent" class="game-container">
+
+    <!-- Game Introduction -->
+
+    <section
+      id="intro"
+      class="game-introduction"
+      aria-labelledby="heading"
+    >
+
+      <h1 id="heading">
+        Guess the Number
+      </h1>
+
+      <p id="para">
+        I'm thinking of a number between 1 and 160.
+        <br>
+        Can you get it?
+      </p>
+
+    </section>
+
+
+    <!-- Game Display -->
+
+    <section
+      id="displayArea"
+      class="game-display"
+      aria-label="Game status"
+    >
+
+      <!-- Score Information -->
+
+      <div class="score-row">
+
+        <div class="box score">
+          <span class="box-label">Score</span>
+          <span class="score-value">0</span>
+        </div>
+
+        <div class="box streak">
+          <span class="box-label">Streak</span>
+          <span class="streak-value">0</span>
+        </div>
+
+        <div class="box best">
+          <span class="box-label">Best</span>
+          <span class="best-value">0</span>
+        </div>
+
+      </div>
+
+
+      <!-- Hidden Number -->
+
+      <div
+        id="randomNumDisp"
+        class="number-display"
+        aria-live="polite"
+      >
+        ??
+      </div>
+
+    </section>
+
+
+    <!-- Answer Options -->
+
+    <section
+      id="Btns"
+      class="answer-options"
+      aria-label="Answer choices"
+    >
+
+      <button
+        id="firstBtn"
+        class="answer-button"
+        type="button"
+      >
+        00
+      </button>
+
+      <button
+        id="secondBtn"
+        class="answer-button"
+        type="button"
+      >
+        00
+      </button>
+
+      <button
+        id="thirdBtn"
+        class="answer-button"
+        type="button"
+      >
+        00
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       RESET / SAVE SCORE MODAL
+  ========================== -->
+
+  <div
+    id="overlay"
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="scoreFormTitle"
+  >
+
+    <form id="scoreForm" class="score-form">
+
+      <button
+        id="removeBtn"
+        class="close-button"
+        type="button"
+        aria-label="Close reset dialog"
+      >
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+
+          <line
+            x1="15"
+            y1="9"
+            x2="9"
+            y2="15"
+          ></line>
+
+          <line
+            x1="9"
+            y1="9"
+            x2="15"
+            y2="15"
+          ></line>
+        </svg>
+
+      </button>
+
+
+      <h2 id="scoreFormTitle">
+        Reset your game
+      </h2>
+
+      <p>
+        Enter a username to save your best score
+        and start a new game.
+      </p>
+
+
+      <div class="score-form-controls">
+
+        <label
+          for="nameInput"
+          class="visually-hidden"
+        >
+          Username
+        </label>
+
+        <input
+          type="text"
+          id="nameInput"
+          name="username"
+          placeholder="Enter your name"
+          autocomplete="name"
+          maxlength="30"
+          required
+        >
+
+        <button
+          type="submit"
+          class="save-button"
+        >
+          Save
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <!-- JavaScript -->
+
+  <script src="script.js"></script>
+
+</body>
+</html>
