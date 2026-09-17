@@ -495,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Reset game statistics
 
+    bestSpan.textContent = '0';
     scoreSpan.textContent = '0';
     streakSpan.textContent = '0';
     rounds = 0;
